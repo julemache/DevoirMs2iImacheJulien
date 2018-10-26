@@ -8,6 +8,8 @@ let app = new Vue({
     comments: [],
     accountid: 1,
     commentaire: '',
+    idcomment: '',
+    editcomment: '',
   },
   mounted() {
     this.getarticle();
@@ -22,8 +24,27 @@ let app = new Vue({
             // error callback
       });
     },
-    recuparticle() {
-
+    modifier(id) {
+      this.$http.put('http://localhost:3000/api/comments/' + id, {text: this.editcomment, date: new Date(Date.now())}).then(response => {
+            // get body data
+        this.comments = response.body;
+      }, response => {
+            // error callback
+      });
+      this. getcomment();
+    },
+    modifierr(id, titree) {
+      this.idcomment = id;
+      this.editcomment = titree;
+    },
+    supprime(id) {
+      this.$http.delete('http://localhost:3000/api/comments/' + id).then(response => {
+        // get body data
+        this.comments = response.body;
+      }, response => {
+        // error callback
+      });
+      this. getcomment();
     },
     getcomment() {
       this.$http.get('http://localhost:3000/api/comments').then(response => {
