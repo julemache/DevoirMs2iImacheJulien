@@ -10,7 +10,6 @@ const moscaSettings = {
     static: './',
   },
 };
-
 const server = new mosca.Server(moscaSettings); // here we start mosca
 server.on('ready', setup); // on init it fires up setup()
 server.on('clientConnected', () => {

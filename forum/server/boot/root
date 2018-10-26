@@ -1,0 +1,63 @@
+//"use strict";
+var dsConfig = require("../datasources.json");
+
+var path = require("path");
+
+module.exports = function(app) {
+  var Account = app.models.account;
+
+  // login page
+
+  app.get("/", function(req, res) {
+    //var credentials = dsConfig.emailDs.transports[0].auth;
+
+    res.render("login", {});
+  });
+
+  app.get("/verified", function(req, res) {
+    res.render("verified");
+  });
+
+  app.post("/login", function(req, res) {
+    Account.login(
+      {
+        email: req.body.email,
+        password: req.body.password
+      },
+      "account",
+      function(err, token) {
+        if (err) {
+          if (err.details && err.code === "Mauvais identifiant") {
+            res.render("reponseToTriggerEmail", {
+              title: "Login failed",
+              content: err,
+              redirectToEmail: "/api/account/" + err.details.userId + "/verify",
+              redirectTo: "/",
+              redirectToLinkText: "Click here"
+            });
+          } else {
+            res.render("response", {
+              title: "Login failed. Wrong username or password",
+              content: err,
+              redirectTo: "/",
+              redirectToLinkText: "Please login again"
+            });
+          }
+          return;
+        }
+        res.render("home", {
+          email: req.body.email,
+          accessToken: token.id
+        });
+      }
+    );
+  });
+
+  app.get("/logout", function(req, res, next) {
+    if (!req.accessToken) return res.sendStatus(401);
+    Account.logout(req.accessToken.id, function(err) {
+      if (err) return next(err);
+      res.redirect("/");
+    });
+  });
+};
