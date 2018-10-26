@@ -66,8 +66,7 @@ let app = new Vue({
   },
   sockets: {
     connect() {
-      this.getMessages(this.id);
-      this.getTopic();
+      this.getcomment();
     },
 
     disconnect() {
@@ -75,8 +74,8 @@ let app = new Vue({
     },
 
     // eslint-disable-next-line
-    submitMessage (message) {
-      this.getMessages(this.id);
+    ajoutercommentaire (message) {
+      this.getcomment();
     },
   },
 

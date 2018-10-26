@@ -31,12 +31,12 @@ boot(app, __dirname, function(err) {
         console.info('user disconnected');
       });
 
-      socket.on('submitMessage', function(msg, topic) {
-        socket.emit('submitMessage', msg);
+      socket.on('ajoutercommentaire', function(msg) {
+        socket.emit('ajoutercommentaire', msg);
         // console.log(record);
-        let record =  [{Date: new Date(Date.now()), Message: msg, topicId: topic}];
-        app.models.Message.create(record, (error) => { if (error) console.error(error); });
-        socket.broadcast.emit('submitMessage', msg);
+        let record =  [{date: new Date(Date.now()), text: msg}];
+        app.models.Comment.create(record, (error) => { if (error) console.error(error); });
+        socket.broadcast.emit('ajoutercommentaire', msg);
         // app.models.Message.create(record, (error) => { if (error) console.error(error); });
        // socket.broadcast.emit('submitMessage', msg);
 

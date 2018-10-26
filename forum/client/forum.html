@@ -27,7 +27,7 @@
       <li><a href="#"><span class="glyphicon glyphicon-user"></span> Deconnexion</a></li>
     </ul>
   </div>
-</nav>
+</nav>{{message}}
 <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
@@ -45,9 +45,9 @@
   </div>
 
 <a class="btn btn-primary" href="/article.html" role="button">Retour</a><br><br><br>
-<label for="usr">Ajouter un commentaire</label><br><button class="btn btn-primary" @click="ajoutercommentaire()">Nouveau commentaire</button><br><br>
+<label for="usr">Ajouter un commentaire</label><br><button class="btn btn-primary" @click="ajoutercommentaire(message)">Nouveau commentaire</button><br><br>
 <input type="text" v-model="commentaire" class="form-control" id="usr">
-
+{{message}}
 <br>
 
 <div class="article" height:100px  v-for="article in articles">
