@@ -1,18 +1,23 @@
-$(function() {
+'use strict';
+let app = new Vue({
+  el: '#app',
+  data: {
+    email: this.email,
+    mdp: this.mdp,
+  },
+  methods: {
+      connexion : function(
+          // GET /someUrl
+      this.$http.get('/someUrl').then(response => {
 
-    $('#login-form-link').click(function(e) {
-		$("#login-form").delay(100).fadeIn(100);
- 		$("#register-form").fadeOut(100);
-		$('#register-form-link').removeClass('active');
-		$(this).addClass('active');
-		e.preventDefault();
-	});
-	$('#register-form-link').click(function(e) {
-		$("#register-form").delay(100).fadeIn(100);
- 		$("#login-form").fadeOut(100);
-		$('#login-form-link').removeClass('active');
-		$(this).addClass('active');
-		e.preventDefault();
-	});
+      // get body data
+      this.someData = response.body;
+
+  }, response => {
+    // error callback
+  });
+
+      )
+  },
 
 });

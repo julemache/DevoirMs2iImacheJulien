@@ -1,4 +1,5 @@
 'use strict';
+
 let app = new Vue({
   el: '#app',
   data: {
@@ -6,7 +7,7 @@ let app = new Vue({
     articles: [],
     comments: [],
     accountid: 1,
-    url: '5bd2b9f2f635181854f1c3c0',
+    commentaire: '',
   },
   mounted() {
     this.getarticle();
@@ -14,7 +15,7 @@ let app = new Vue({
   },
   methods: {
     getarticle() {
-      this.$http.get('http://localhost:3000/api/articles/' + this.url).then(response => {
+      this.$http.get('http://localhost:3000/api/articles/').then(response => {
             // get body data
         this.articles = response.body;
       }, response => {
@@ -22,15 +23,24 @@ let app = new Vue({
       });
     },
     recuparticle() {
-      
+
     },
-    getcomment(){
+    getcomment() {
       this.$http.get('http://localhost:3000/api/comments').then(response => {
         // get body data
         this.comments = response.body;
       }, response => {
         // error callback
       });
+    },
+    ajoutercommentaire() {
+      this.$http.post('http://localhost:3000/api/comments/', {text: this.commentaire, date: new Date(Date.now()), accountId: '1'}).then(response => {
+        // get body data
+        this.comments = response.body;
+      }, response => {
+        // error callback
+      });
+      this. getcomment();
     },
   },
   sockets: {

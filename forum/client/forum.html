@@ -14,11 +14,11 @@
 <body>
 <div id="app">
     <script>
-        var url_string = document.location.href; //window.location.href
-        var url1 = new URL(url_string);
-        var brand = url1.searchParams.get("article");
-        
-        </script>
+        let url_string = document.location.href; //window.location.href
+        let url1 = new URL(url_string);
+        let brand = url1.searchParams.get("article");
+    </script>
+<input type="text" v-model="url">
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -30,14 +30,15 @@
   </div>
 </nav>
 
-<a class="btn btn-primary" href="/article.html" role="button">Retour</a><br>
+<a class="btn btn-primary" href="/article.html" role="button">Retour</a><br><br><br>
+<label for="usr">Ajouter un commentaire</label><br><button class="btn btn-primary" @click="ajoutercommentaire()">Nouveau commentaire</button>
+<input type="text" v-model="commentaire" class="form-control" id="usr">
+
 <div class="article" height:100px  v-for="article in articles">
     <div class="panel panel-default">
         <div class="panel-heading">Article : {{article.title}}</div>
         <div class="panel-body" v-for="comment in comments">{{comment.text}}</div>
     </div>
-        <label for="usr">Ajouter un commentaire</label>
-        <input type="text" class="form-control" id="usr">
 </div>
 <script src="js/forum.js"></script>
 </body>
