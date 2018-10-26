@@ -5,6 +5,9 @@ let app = new Vue({
     articles: [],
     titre: this.titre,
     user: '1',
+    idarticle: '',
+    editarticle: '',
+
   },
   mounted() {
     this.getarticle();
@@ -35,8 +38,21 @@ let app = new Vue({
       });
       this.getarticle();
     },
-    modifier() {
-
+    modifier(id) {
+      this.$http.put('http://localhost:3000/api/articles/' + id, {title: this.editarticle, datecreation: new Date(Date.now())}).then((response) => {
+        this.articles = response.data;
+      }, (response) => {
+        console.log('erreur', response);
+      });
+      this.getarticle();
+      this.editarticle = '';
+      this.idarticle = '';
+    },
+    modif(id, titree) {
+      console.info(id);
+      console.info(titree);
+      this.idarticle = id;
+      this.editarticle = titree;
     },
   },
 

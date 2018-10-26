@@ -26,7 +26,8 @@
 <td><button  class="btn btn-primary" type="submit" @click="ajouter()" >Ajouter</button></td>
 <br>
 <input class="form-control" type="text" v-model="titre" value="Ajouter"/>
-<table class="table table-dark">
+<div style="width: 70%;float:left">
+<table  class="table table-dark">
         <thead>
           <tr>
             <th scope="col">Titre</th>
@@ -38,12 +39,33 @@
           <tr v-for="article in articles">
             <th scope="row">{{article.title}}</th>
             <td>{{article.datecreation}}</td>
-            <td><button class="btn btn-warning" type="submit">Modifier</button>
+            <td>
+            <button class="btn btn-warning" @click="modif(article.id,article.title) "type="submit">Modifier</button>
             <button class="btn btn-danger" @click ="supprimer(article.id)" type="submit" >Supprimer</button>
             <button class="btn btn-info"><a :href="'forum.html?article=' + article.id">Visualiser</a></button></td>
           </tr>
         </tbody>
       </table>
+</div>
+<div style="width:30%;float:left">
+        <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modification</h4>
+                  </div>
+                  <div class="modal-body">
+                  <input type="text" class="form-control" v-model="idarticle" value="">
+                  <input type="text" class="form-control" v-model="editarticle" value="">
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-default" @click="modifier(idarticle)" >Modifier</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+</div>
+    
 <script src="js/article.js"></script>
 </body>
 </html>

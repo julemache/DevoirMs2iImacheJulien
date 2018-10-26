@@ -13,16 +13,23 @@
 </head>
 <body>
 <div id="app">
+    <script>
+        var url_string = document.location.href; //window.location.href
+        var url1 = new URL(url_string);
+        var brand = url1.searchParams.get("article");
+        
+        </script>
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">FORUM</a>
+      <a class="navbar-brand" href="#">FORUM sur l'article <script>document.write(brand)</script></a>
     </div>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="#"><span class="glyphicon glyphicon-user"></span> Deconnexion</a></li>
     </ul>
   </div>
 </nav>
+
 <a class="btn btn-primary" href="/article.html" role="button">Retour</a><br>
 <div class="article" height:100px  v-for="article in articles">
     <div class="panel panel-default">
