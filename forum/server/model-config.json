@@ -34,5 +34,17 @@
   "Role": {
     "dataSource": "db",
     "public": false
+  },
+  "article": {
+    "dataSource": "mongodb",
+    "public": true
+  },
+  "account": {
+    "dataSource": "mongodb",
+    "public": true
+  },
+  "comment": {
+    "dataSource": "mongodb",
+    "public": true
   }
 }

@@ -1,0 +1,31 @@
+{
+  "name": "account",
+  "plural": "accounts",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "account_article": {
+      "type": "hasMany",
+      "model": "article",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "account_comment": {
+      "type": "hasMany",
+      "model": "comment",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

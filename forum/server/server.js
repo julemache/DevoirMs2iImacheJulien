@@ -2,7 +2,6 @@
 
 var loopback = require('loopback');
 var boot = require('loopback-boot');
-
 var app = module.exports = loopback();
 
 app.start = function() {
@@ -24,6 +23,31 @@ boot(app, __dirname, function(err) {
   if (err) throw err;
 
   // start the server if `$ node server.js`
-  if (require.main === module)
-    app.start();
+  if (require.main === module) {
+    app.io = require('socket.io')(app.start());
+    app.io.on('connection', function(socket) {
+      console.info('a user connected');
+      socket.on('disconnect', function() {
+        console.info('user disconnected');
+      });
+
+      socket.on('submitMessage', function(msg, topic) {
+        socket.emit('submitMessage', msg);
+        // console.log(record);
+        let record =  [{Date: new Date(Date.now()), Message: msg, topicId: topic}];
+        app.models.Message.create(record, (error) => { if (error) console.error(error); });
+        socket.broadcast.emit('submitMessage', msg);
+        // app.models.Message.create(record, (error) => { if (error) console.error(error); });
+       // socket.broadcast.emit('submitMessage', msg);
+
+        //client.publish(topic, msg);
+       // console.log(topic + ' : ' + msg);
+       // socket.emit('publishMessageTopic', topic, msg);
+      });
+      //socket.on('subscribeTopic', function(topic) {
+       // client.subscribe(topic);
+       // console.log('Je souscris à ' + topic);
+      //});
+    });
+  }
 });
