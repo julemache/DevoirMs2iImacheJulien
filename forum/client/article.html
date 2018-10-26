@@ -23,9 +23,9 @@
     </ul>
   </div>
 </nav>
-<td><button class="btn btn-primary" type="submit" >Ajouter</button></td>
+<td><button  class="btn btn-primary" type="submit" @click="ajouter()" >Ajouter</button></td>
 <br>
-<input type="text" v-model="titre" @click="ajouter" value="Ajouter"/>
+<input class="form-control" type="text" v-model="titre" value="Ajouter"/>
 <table class="table table-dark">
         <thead>
           <tr>
@@ -38,9 +38,9 @@
           <tr v-for="article in articles">
             <th scope="row">{{article.title}}</th>
             <td>{{article.datecreation}}</td>
-            <td><button class="btn btn-danger" type="submit">Modifier</button>
-            <button class="btn btn-warning"type="submit" >Supprimer</button>
-            <button class="btn btn-info"type="submit" >Visualiser</button></td>
+            <td><button class="btn btn-warning" type="submit">Modifier</button>
+            <button class="btn btn-danger" @click ="supprimer(article.id)" type="submit" >Supprimer</button>
+            <button class="btn btn-info"><a :href="'forum.html?article=' + article.id">Visualiser</a></button></td>
           </tr>
         </tbody>
       </table>
